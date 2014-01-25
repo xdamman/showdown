@@ -14,12 +14,15 @@
         return [
 
             // @username syntax
-            { type: 'lang', regex: '\\B(.)?@([\\S]+)\\b', replace: function(match, leading, username) {
+            { type: 'lang', regex: '(.)?@([\\S]+)\\b', replace: function(match, leading, username) {
                 // Check if we matched the leading \ or [ and return nothing changed if so
                 if (['\\','['].indexOf(leading) > -1) {
                     return match;
                 } else {
-                    return '<a href="http://twitter.com/' + username + '">@' + username + '</a>';
+                  if(!leading || leading == ' ')
+                    return leading+'<a href="http://twitter.com/' + username + '">@' + username + '</a>';
+                  else
+                    return match;
                 }
             }},
 
